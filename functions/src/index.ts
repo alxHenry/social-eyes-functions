@@ -2,10 +2,11 @@ import * as express from "express";
 import * as firebase from "firebase";
 import * as admin from "firebase-admin";
 import * as functions from "firebase-functions";
+import { firebaseApiKey } from "./secret";
 import { Poster, PosterResponse } from "./types";
 
 const config = {
-  apiKey: "AIzaSyCRylCm5yiUf6gThinGR412VfvbFUHbljk",
+  apiKey: firebaseApiKey,
   authDomain: "socialeyes-d0b5f.firebaseapp.com",
   databaseURL: "https://socialeyes-d0b5f.firebaseio.com",
   projectId: "socialeyes-d0b5f",
