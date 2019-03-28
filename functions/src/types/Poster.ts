@@ -3,3 +3,7 @@ export interface Poster {
   content: string;
   createdAt: FirebaseFirestore.Timestamp;
 }
+
+export interface PosterResponse extends Poster {
+  id: string;
+}
