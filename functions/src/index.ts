@@ -18,15 +18,13 @@ admin.initializeApp();
 const app = express();
 const db = admin.firestore();
 const usersRef = db.collection("users");
+const postersRef = db.collection("poster");
 
 app.get("/posters", async (_, res) => {
   const posters: PosterResponse[] = [];
 
   try {
-    const posterDocs = await db
-      .collection("poster")
-      .orderBy("createdAt", "desc")
-      .get();
+    const posterDocs = await postersRef.orderBy("createdAt", "desc").get();
 
     posterDocs.forEach(posterDoc => {
       const poster = posterDoc.data() as Poster;
@@ -41,6 +39,7 @@ app.get("/posters", async (_, res) => {
     res.json(posters);
   } catch (err) {
     res.status(500).send("Something went wrong");
+    return;
   }
 });
 
@@ -52,18 +51,17 @@ app.post("/posters", async (req, res) => {
   };
 
   try {
-    const posterDoc = await db.collection("poster").add(uncreatedPoster);
+    const posterDoc = await postersRef.add(uncreatedPoster);
     res.send(posterDoc.id);
   } catch (err) {
     res.status(500).send("Failed to create poster");
+    return;
   }
 });
 
 app.post("/signup", async (req, res) => {
   if (req.body.password !== req.body.confirmPassword) {
-    res
-      .status(400)
-      .json({ errorCode: 1, errorMessage: "Password fields do not match" });
+    res.status(400).json({ errorMessage: "Password fields do not match" });
     return;
   }
 
@@ -112,8 +110,32 @@ app.post("/signup", async (req, res) => {
     const errorMessage = err.message || "Password is not sufficiently strong";
 
     res.status(500).json({
-      errorMessage
+      errorMessage,
+      errorCode: err.code
     });
+    return;
+  }
+});
+
+app.post("/login", async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    const userCred = await firebase
+      .auth()
+      .signInWithEmailAndPassword(email, password);
+
+    if (!userCred.user) {
+      throw new Error("Unable to get the user creds");
+    }
+
+    const userAccessToken = await userCred.user.getIdToken();
+    res.json({ userAccessToken });
+  } catch (err) {
+    res.status(500).json({
+      errorMessage: err.message || "Unable to log the user in",
+      errorCode: err.code
+    });
+    return;
   }
 });
 

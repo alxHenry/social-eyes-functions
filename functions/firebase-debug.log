@@ -1,0 +1,53 @@
+[debug] [2019-03-28T20:21:49.142Z] ----------------------------------------------------------------------
+[debug] [2019-03-28T20:21:49.145Z] Command:       /Users/alhenry/.nvm/versions/node/v8.12.0/bin/node /Users/alhenry/.nvm/versions/node/v8.12.0/bin/firebase deploy
+[debug] [2019-03-28T20:21:49.145Z] CLI Version:   6.5.0
+[debug] [2019-03-28T20:21:49.145Z] Platform:      darwin
+[debug] [2019-03-28T20:21:49.145Z] Node Version:  v8.12.0
+[debug] [2019-03-28T20:21:49.147Z] Time:          Thu Mar 28 2019 13:21:49 GMT-0700 (PDT)
+[debug] [2019-03-28T20:21:49.147Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2019-03-28T20:21:49.170Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2019-03-28T20:21:49.171Z] > authorizing via signed-in user
+[debug] [2019-03-28T20:21:49.172Z] [iam] checking project socialeyes-d0b5f for permissions ["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]
+[debug] [2019-03-28T20:21:49.174Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/socialeyes-d0b5f:testIamPermissions  
+
+[debug] [2019-03-28T20:21:49.643Z] <<< HTTP RESPONSE 200
+[warn] ⚠  functions: package.json indicates an outdated version of firebase-functions.
+ Please upgrade using npm install --save firebase-functions@latest in your functions directory.
+[info] 
+[info] === Deploying to 'socialeyes-d0b5f'...
+[info] 
+[info] i  deploying functions
+[info] Running command: npm --prefix "$RESOURCE_DIR" run lint
+[info] Running command: npm --prefix "$RESOURCE_DIR" run build
+[info] ✔  functions: Finished running predeploy script.
+[debug] [2019-03-28T20:21:58.875Z] > [functions] package.json contents: {
+  "name": "functions",
+  "scripts": {
+    "lint": "tslint --project tsconfig.json",
+    "build": "tsc",
+    "serve": "npm run build && firebase serve --only functions",
+    "shell": "npm run build && firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "main": "lib/index.js",
+  "dependencies": {
+    "@types/express": "4.16.1",
+    "express": "4.16.4",
+    "firebase": "5.9.1",
+    "firebase-admin": "7.0.0",
+    "firebase-functions": "2.2.0"
+  },
+  "devDependencies": {
+    "tslint": "5.12.0",
+    "typescript": "3.2.2"
+  },
+  "private": true
+}
+[info] i  functions: ensuring necessary APIs are enabled...
+[debug] [2019-03-28T20:21:58.876Z] >>> HTTP REQUEST GET https://servicemanagement.googleapis.com/v1/services/cloudfunctions.googleapis.com/projectSettings/socialeyes-d0b5f?view=CONSUMER_VIEW  
+ 
+[debug] [2019-03-28T20:21:58.877Z] >>> HTTP REQUEST GET https://servicemanagement.googleapis.com/v1/services/runtimeconfig.googleapis.com/projectSettings/socialeyes-d0b5f?view=CONSUMER_VIEW  
+ 
